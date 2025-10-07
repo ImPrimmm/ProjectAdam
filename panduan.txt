@@ -1,0 +1,9 @@
+masuk ke localhost phpmyadmin
+klik menu import
+klik choose file
+pilih file db_realisasi.sql
+scroll kebawah dan klik import
+klik lagi menu import 
+klik choose file
+pilih insert_to_db_realisasi.sql
+scroll kebawah dan klik import
