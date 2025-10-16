@@ -112,7 +112,7 @@
         <li>About</li>
         <li>Struktur Organisasi</li>
         <li><a href="./Dashboard/index.php">Dashboard</a></li>
-        <li><a href=""><button>Login</button></a></li>
+        <li><a href="/admin_SW1Qb3NzaWJsZU1jNzY3_/index.php"><button>Login</button></a></li>
       </ul>
     </header>
 
