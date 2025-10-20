@@ -31,20 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans bg-cover bg-no-repeat" style="background-image: url('../assets/adam-bg.jpeg');">
 
     <!-- Navbar -->
-    <header class="bg-gray-900 text-white shadow-lg">
+    <header class="bg-gray-200 text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-8 flex justify-between items-center">
             <!-- Left: Menu -->
             <div class="flex items-center space-x-4">
-                <button onclick="openNav()" class="text-gray-300 hover:text-white focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <h1 class="text-xl font-bold tracking-wide">Dashboard</h1>
+                <h1 class="text-xl font-bold text-black tracking-wide">Admin Panel</h1>
             </div>
 
             <!-- Right: Search + Profile -->
@@ -130,47 +124,128 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <div class="max-w-3xl mx-auto mt-12 bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-6">Tambah Data Realisasi</h2>
+    <div class="max-w-3xl mx-auto mt-32 bg-white p-10 rounded-xl shadow-2xl border border-gray-100">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-3">Tambah Data Realisasi</h2>
 
         <?php if (!empty($message)): ?>
-            <div class="mb-4 p-3 rounded bg-red-100 text-red-700">
+            <div class="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 font-medium flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                    </path>
+                </svg>
                 <?= $message ?>
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="space-y-6">
-            <!-- Partai -->
-            <div>
-                <label class="block mb-2 font-semibold">Partai</label>
-                <input type="text" name="partai" required
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <form action="import_process.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div class="flex flex-col space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Pilih File (.CSV):</label>
+
+                <div id="file-input-container">
+                    <label for="file-upload" id="upload-label"
+                        class="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 cursor-pointer transition duration-150 ease-in-out">
+                        Pilih File CSV
+                    </label>
+                </div>
+
+                <input id="file-upload" name="file" type="file" accept=".csv" class="sr-only">
+
+                <div id="file-preview"
+                    class="hidden w-full p-3 border border-indigo-200 bg-indigo-50 rounded-lg flex justify-between items-center transition duration-300">
+                    <span id="file-name" class="text-sm font-medium text-indigo-700 truncate"></span>
+                    <button type="button" id="cancel-file-btn"
+                        class="ml-4 p-1 rounded-full text-gray-900 hover:bg-gray-600 hover:text-gray-700 transition duration-150">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Hanya file dengan format **.csv** yang diperbolehkan.</p>
             </div>
 
-            <!-- Pendidikan Politik -->
             <div>
-                <label class="block mb-2 font-semibold">Pendidikan Politik</label>
-                <textarea name="pendidikan_politik" required rows="3"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <button type="submit" id="submit-btn"
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 014 9H7z"></path>
+                    </svg>
+                    Import Data
+                </button>
             </div>
 
-            <!-- Kesektariatan -->
-            <div>
-                <label class="block mb-2 font-semibold">Kesektariatan</label>
-                <textarea name="kesektariatan" required rows="3"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-            </div>
-
-            <!-- Buttons -->
-            <div class="flex justify-between">
-                <a href="dashboard.php" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg">Batal</a>
-                <button type="submit"
-                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Simpan</button>
-            </div>
+            <button type="button"
+                class="flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg shadow-sm transition">
+                <!-- Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                <a href="dashboard.php">Cancel</a>
+            </button>
         </form>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('file-upload');
+            const filePreview = document.getElementById('file-preview');
+            const fileNameSpan = document.getElementById('file-name');
+            const cancelBtn = document.getElementById('cancel-file-btn');
+            const uploadLabel = document.getElementById('upload-label');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Fungsi yang dipanggil saat file dipilih
+            fileInput.addEventListener('change', function () {
+                if (this.files.length > 0) {
+                    // Tampilkan pratinjau
+                    fileNameSpan.textContent = this.files[0].name;
+                    filePreview.classList.remove('hidden');
+
+                    // Sembunyikan tombol pilih file asli
+                    uploadLabel.classList.add('hidden');
+
+                    // Aktifkan tombol submit
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    // Sembunyikan pratinjau jika file dibatalkan (misalnya lewat dialog OS)
+                    filePreview.classList.add('hidden');
+                    uploadLabel.classList.remove('hidden');
+
+                    // Non-aktifkan tombol submit jika tidak ada file
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            });
+
+            // Fungsi yang dipanggil saat tombol batal (Cancel) diklik
+            cancelBtn.addEventListener('click', function () {
+                // 1. Reset nilai input file (penting!)
+                fileInput.value = '';
+
+                // 2. Sembunyikan pratinjau
+                filePreview.classList.add('hidden');
+
+                // 3. Tampilkan kembali tombol pilih file
+                uploadLabel.classList.remove('hidden');
+
+                // 4. Non-aktifkan tombol submit
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+
+            // Inisialisasi: Non-aktifkan tombol submit saat pertama kali loading jika tidak ada file
+            if (fileInput.files.length === 0) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        });
         const drawer = document.getElementById("profileDrawer");
         function openDrawer() {
             drawer.classList.remove("translate-x-full");

@@ -44,7 +44,7 @@ $partai_result = $conn->query($sql_partai);
 </head>
 
 <body class="h-screen flex items-center justify-center bg-gray-900 bg-opacity-70"
-    style="background: url('https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/231/2024/07/16/Gedung-Sate-Bandung-Abah-Shutterstock-2609867939.png') no-repeat center center; background-size: cover;">
+    style="background: url('../assets/adam-bg.jpeg') no-repeat center center; background-size: cover;">
 
     <div class="bg-black bg-opacity-80 backdrop-blur-md rounded-2xl shadow-xl w-full max-w-2xl p-10 text-white">
         <h1 class="text-2xl font-bold mb-8 text-center">Edit Data Realisasi</h1>

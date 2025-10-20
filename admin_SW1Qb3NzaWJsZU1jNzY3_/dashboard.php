@@ -38,20 +38,14 @@ $total_pages = ceil($total_data / $limit);
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans bg-cover bg-no-repeat" style="background-image: url('../assets/adam-bg.jpeg');">
 
     <!-- Navbar -->
-    <header class="bg-gray-900 text-white shadow-lg">
+    <header class="bg-[#F9FAFB] text-white text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 py-8 flex justify-between items-center">
             <!-- Left: Menu -->
             <div class="flex items-center space-x-4">
-                <button onclick="openNav()" class="text-gray-300 hover:text-white focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <h1 class="text-xl font-bold tracking-wide">Dashboard</h1>
+                <h1 class="text-xl font-bold text-black tracking-wide">Admin Panel</h1>
             </div>
 
             <!-- Right: Search + Profile -->
@@ -106,7 +100,7 @@ $total_pages = ceil($total_data / $limit);
             <a href="#" class="block px-4 py-2 rounded hover:bg-gray-700">Contact</a>
         </div>
 
-        <!-- Logout di paling bawah -->
+        <!-- Logout -->
         <div class="p-4 border-t border-gray-700">
             <a href="logout.php"
                 class="block w-full text-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
@@ -115,33 +109,13 @@ $total_pages = ceil($total_data / $limit);
         </div>
     </div>
 
-    <!-- Sidebar -->
-    <div id="mySidenav"
-        class="fixed left-0 top-0 h-full w-0 bg-gray-900 text-white overflow-x-hidden transition-all duration-300 z-50 flex flex-col">
-
-        <!-- Header -->
-        <div class="flex items-center justify-between p-4 border-b border-gray-700">
-            <img src="../assets/logo kesbangpol BARU.png" class="w-[200px]">
-            <button onclick="closeNav()"
-                class="text-gray-400 hover:text-white text-2xl focus:outline-none transition-colors duration-200">
-                &times;
-            </button>
-        </div>
-
-        <!-- Menu -->
-        <div class="flex-1 p-4 space-y-2">
-            <a href="#" class="block py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors duration-200">About</a>
-            <a href="#" class="block py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors duration-200">Services</a>
-            <a href="#" class="block py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors duration-200">Clients</a>
-            <a href="#" class="block py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors duration-200">Contact</a>
-        </div>
-    </div>
-
     <!-- Main -->
     <main class="max-w-7xl mx-auto px-6 py-10">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold">Data Realisasi</h2>
-            <a href="create.php" class="flex px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow">
+            <h2 class="text-2xl bg-[#F9FAFB] p-4 text-black rounded-xl font-semibold">Data Realisasi</h2>
+
+            <a href="create.php"
+                class="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white/90 rounded-lg shadow transition">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
@@ -150,7 +124,7 @@ $total_pages = ceil($total_data / $limit);
         </div>
 
         <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <table class="w-full text-sm text-left border-collapse">
+            <table class="w-full text-sm border-collapse">
                 <thead class="bg-gray-800 text-white text-sm uppercase">
                     <tr>
                         <th class="text-center py-6">ID</th>
@@ -161,14 +135,18 @@ $total_pages = ceil($total_data / $limit);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (mysqli_num_rows($result) > 0): ?>
-                        <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <?php
+                    if (mysqli_num_rows($result) > 0):
+                        $no = 1;
+                        while ($row = mysqli_fetch_assoc($result)):
+                            ?>
                             <tr class="border-b hover:bg-gray-200">
-                                <td class="text-center py-6"><?php echo $row['id']; ?></td>
+                                <td class="text-center py-6"><?php echo $no; ?></td>
                                 <td class="text-center py-6"><?php echo $row['partai']; ?></td>
                                 <td class="text-center py-6"><?php echo $row['pendidikan_politik']; ?></td>
                                 <td class="text-center py-6"><?php echo $row['kesektariatan']; ?></td>
                                 <td class="text-center py-6 relative">
+                                    <!-- Dropdown Action -->
                                     <button type="button" onclick="toggleDropdown('dropdown-<?php echo $row['id']; ?>')"
                                         class="inline-flex justify-center items-center px-3 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none">
                                         ⋮
@@ -176,52 +154,43 @@ $total_pages = ceil($total_data / $limit);
 
                                     <div id="dropdown-<?php echo $row['id']; ?>"
                                         class="hidden absolute right-3 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
-
                                         <a href="edit.php?id=<?php echo $row['id']; ?>"
                                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                             Edit
                                         </a>
-
                                         <button onclick="openDeleteModal(<?php echo $row['id']; ?>)"
                                             class="block px-11 py-2 text-sm text-red-600 hover:bg-red-50">
                                             Delete
                                         </button>
 
-                                        <!-- Modal Delete -->
+                                        <!-- Modal -->
                                         <div id="deleteModal"
-                                            class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-                                            <div class="bg-gray-900 rounded-lg shadow-lg w-full max-w-md p-6">
-                                                <h2 class="text-lg font-bold text-gray-100 mb-4">Konfirmasi Hapus</h2>
-                                                <p class="text-gray-100 mb-6">Apakah kamu yakin ingin menghapus data ini?</p>
-
-                                                <!-- Form delete -->
-                                                <form id="deleteForm" method="GET" action="delete.php">
-                                                    <input type="hidden" name="id" id="deleteId">
-                                                    <div class="flex justify-end space-x-3">
-                                                        <button type="button" onclick="closeDeleteModal()"
-                                                            class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-                                                            Batal
-                                                        </button>
-                                                        <button type="submit"
-                                                            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                                                            Hapus
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                            class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                            <div class="bg-white p-6 rounded shadow-lg">
+                                                <p class="mb-4">Yakin ingin menghapus data ini?</p>
+                                                <div class="flex justify-end space-x-2">
+                                                    <button onclick="closeDeleteModal()"
+                                                        class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+                                                    <a id="confirmDeleteBtn" href="#"
+                                                        class="px-4 py-2 bg-red-600 text-white rounded">Delete</a>
+                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </td>
                             </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
+                            <?php
+                            $no++;
+                        endwhile;
+                    else:
+                        ?>
                         <tr>
                             <td colspan="5" class="text-center py-4">Tidak ada data</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
+
             <div class="flex justify-center items-center space-x-2 py-6">
                 <?php if ($page > 1): ?>
                     <a href="?page=1"
@@ -304,7 +273,7 @@ $total_pages = ceil($total_data / $limit);
         function openDeleteModal(id) {
             deleteIdInput.value = id;
             deleteModal.classList.remove('hidden');
-            deleteModal.classList.add('flex'); // biar muncul dengan flex
+            deleteModal.classList.add('flex');
         }
 
         function closeDeleteModal() {
@@ -312,12 +281,21 @@ $total_pages = ceil($total_data / $limit);
             deleteModal.classList.remove('flex');
         }
 
-        // Tutup modal kalau klik area luar
         deleteModal.addEventListener('click', function (e) {
             if (e.target === deleteModal) {
                 closeDeleteModal();
             }
         });
+
+        function openDeleteModal(id) {
+            const modal = document.getElementById('deleteModal');
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            confirmBtn.href = "delete.php?id=" + id;
+            modal.classList.remove('hidden');
+        }
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
     </script>
 </body>
 

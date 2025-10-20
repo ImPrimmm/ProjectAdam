@@ -7,146 +7,72 @@
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url("https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/231/2024/07/16/Gedung-Sate-Bandung-Abah-Shutterstock-2609867939.png") no-repeat center center;
-      background-size: cover;
-    }
-
-    .container {
-      background-color: rgb(0, 0, 0, 0.7);
-      height: 100vh;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px;
-      background: linear-gradient(to right, black, black);
-      color: white;
-      height: 80px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-    }
-
-    .containerImg {
-      display: flex;
-      align-items: center;
-    }
-
-    .containerImg img {
-      height: 50px;
-    }
-
-    .containerImgJabar {
-      width: 229.91px;
-    }
-
-    .containerImgJabar img {
-      height: 80px;
-    }
-
-    .title {
-      width: 700px;
-    }
-
-
-    .header h1 {
-      margin: 0;
-      font-size: 36px;
-    }
-
-    .header h2 {
-      margin: 5px 0 0;
-      font-size: 28px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 30px;
-      padding: 30px;
-      justify-items: center;
-    }
-
-    .chart-container {
-      width: 220px;
-      text-align: center;
-      position: relative;
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 10px;
-      border-radius: 12px;
-    }
-
-    .number-circle {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      width: 32px;
-      height: 32px;
-      background: black;
-      color: white;
-      border-radius: 50%;
-      font-size: 20px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    .chart {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto;
-    }
-
-    .chart-title {
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 10px;
-      color: #000;
-    }
-
-    .chart-legend {
-      margin-top: 10px;
-      text-align: left;
-      font-size: 13px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    .legend-color {
-      width: 16px;
-      height: 16px;
-      margin-right: 8px;
-      border-radius: 3px;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="containerImg">
-        <img src="../assets/logo kesbangpol BARU.png" alt="logo" />
-      </span>
-      <div class="title">
-        <h1>DASHBOARD REALISASI BANKEU</h1>
-        <h2>PARPOL PROV JABAR</h2>
+<body class="font-sans bg-gray-100">
+  <!-- Background -->
+  <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('../assets/adam-bg.jpeg');">
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/70"></div>
+
+    <!-- Container utama -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+      <!-- Header -->
+      <header class="relative flex items-center justify-between px-6 md:px-12 py-4 bg-gray-200">
+
+        <!-- Logo kiri -->
+        <div class="flex-shrink-0">
+          <img src="../assets/logo kesbangpol BARU.png" alt="logo" class="h-16">
+        </div>
+
+        <!-- Judul tengah -->
+        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+          <h1 class="text-black text-2xl md:text-3xl font-bold leading-tight">
+            DASHBOARD REALISASI BANKEU
+          </h1>
+          <h2 class="text-black text-lg md:text-xl mt-1 font-medium">
+            PARPOL PROV JABAR
+          </h2>
+        </div>
+
+        <!-- Tombol hamburger di kanan -->
+        <button onclick="openNav()" class="ml-auto text-gray-900 hover:text-gray-400 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </header>
+
+      <!-- Drawer kanan -->
+      <div id="mySidenav"
+        class="fixed right-0 top-0 h-full w-0 bg-gray-200 text-white overflow-x-hidden transition-all duration-300 z-50 flex flex-col">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-700">
+          <img src="../assets/logo kesbangpol BARU.png" class="w-[200px]">
+          <button onclick="closeNav()"
+            class="text-gray-400 hover:text-white text-2xl focus:outline-none transition-colors duration-200">
+            &times;
+          </button>
+        </div>
+
+        <!-- Menu -->
+        <div class="">
+          <a href="../index.php" class="block py-3 px-4 text-black rounded-lg hover:bg-gray-300 hover:text-gray-600 transition-colors duration-200">Home</a>
+          <a href="#" class="block py-3 px-4 text-black rounded-lg hover:bg-gray-300 hover:text-gray-600 transition-colors duration-200">Struktur
+            Organisasi</a>
+        </div>
       </div>
-      <span class="containerImgJabar">
-        <img src="../assets/logo_footer.png" alt="logo" height="50px">
-      </span>
+
+      <!-- Grid chart -->
+      <main class="flex-1 p-8">
+        <div id="chartGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"></div>
+      </main>
     </div>
-    <div class="grid" id="chartGrid"></div>
   </div>
 
   <script>
@@ -156,21 +82,20 @@
         const data = await response.json();
 
         const grid = document.getElementById("chartGrid");
-        grid.innerHTML = ""; // kosongkan dulu isi grid
+        grid.innerHTML = "";
 
         data.forEach((item, index) => {
-          // bikin container chart
           const container = document.createElement("div");
-          container.className = "chart-container";
-          container.innerHTML = `
-        <div class="number-circle">${index + 1}</div>
-        <div id="chartdiv${index}" class="chart"></div>
-        <div class="chart-title">${item.party}</div>
-        <div class="chart-legend" id="legend${index}"></div>
-      `;
-          grid.appendChild(container);
+          container.className = "relative bg-white/80 rounded-lg p-4 text-center";
 
-          // render chart
+          container.innerHTML = `
+            <div class="absolute top-2 left-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold">${index + 1}</div>
+            <div id="chartdiv${index}" class="w-44 h-44 mx-auto"></div>
+            <div class="mt-2 font-semibold text-black">${item.party}</div>
+            <div id="legend${index}" class="mt-2 text-left text-sm"></div>
+          `;
+
+          grid.appendChild(container);
           createDonutChart("chartdiv" + index, "legend" + index, item.chartData);
         });
       } catch (error) {
@@ -183,9 +108,7 @@
       root.setThemes([am5themes_Animated.new(root)]);
 
       let chart = root.container.children.push(
-        am5percent.PieChart.new(root, {
-          layout: root.verticalLayout,
-        })
+        am5percent.PieChart.new(root, { layout: root.verticalLayout })
       );
 
       let series = chart.series.push(
@@ -199,24 +122,11 @@
       series.data.setAll(chartData);
 
       series.slices.template.adapters.add("fill", (fill, target) =>
-        target.dataItem.dataContext.color ?
-        am5.color(target.dataItem.dataContext.color) :
-        fill
+        target.dataItem.dataContext.color ? am5.color(target.dataItem.dataContext.color) : fill
       );
 
-      //  Tooltip custom
-      let tooltip = am5.Tooltip.new(root, {
-        keepTargetHover: true,
-        paddingTop: 2,
-        paddingBottom: 2,
-        paddingLeft: 4,
-        paddingRight: 4,
-      });
-      tooltip.label.setAll({
-        fontSize: 16, // lebih kecil (default biasanya 12–14px)
-        textAlign: "center",
-        fill: am5.color(0x000000),
-      });
+      let tooltip = am5.Tooltip.new(root, { keepTargetHover: true, paddingTop: 2, paddingBottom: 2, paddingLeft: 4, paddingRight: 4 });
+      tooltip.label.setAll({ fontSize: 16, textAlign: "center", fill: am5.color(0x000000) });
 
       series.set("tooltip", tooltip);
       series.slices.template.set("tooltipText", "{category}: {value}%");
@@ -225,9 +135,58 @@
       chart.appear(500, 100);
     }
 
-
-    // jalankan saat halaman load
     loadData();
+
+    const drawer = document.getElementById("profileDrawer");
+    function openDrawer() {
+      drawer.classList.remove("translate-x-full");
+    }
+    function closeDrawer() {
+      drawer.classList.add("translate-x-full");
+    }
+
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+
+      document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
+        if (el.id !== id) el.classList.add('hidden');
+      });
+
+      dropdown.classList.toggle('hidden');
+    }
+
+    window.addEventListener('click', function (e) {
+      if (!e.target.closest('button') && !e.target.closest('[id^="dropdown-"]')) {
+        document.querySelectorAll('[id^="dropdown-"]').forEach(el => el.classList.add('hidden'));
+      }
+    });
+
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteIdInput = document.getElementById('deleteId');
+
+    function openDeleteModal(id) {
+      deleteIdInput.value = id;
+      deleteModal.classList.remove('hidden');
+      deleteModal.classList.add('flex');
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.add('hidden');
+      deleteModal.classList.remove('flex');
+    }
+
+    deleteModal.addEventListener('click', function (e) {
+      if (e.target === deleteModal) {
+        closeDeleteModal();
+      }
+    });
   </script>
 </body>
 
