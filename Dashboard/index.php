@@ -90,7 +90,7 @@
 
           container.innerHTML = `
             <div class="absolute top-2 left-2 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold">${index + 1}</div>
-            <div id="chartdiv${index}" class="w-44 h-44 mx-auto"></div>
+            <div id="chartdiv${index}" class="w-44 h-[300px] mx-auto"></div>
             <div class="mt-2 font-semibold text-black">${item.party}</div>
             <div id="legend${index}" class="mt-2 text-left text-sm"></div>
           `;

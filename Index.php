@@ -26,7 +26,7 @@
       <!-- Menu (desktop) -->
       <ul class="hidden md:flex items-center gap-9 list-none m-0 p-0 text-black">
         <li class="text-lg hover:text-gray-500 cursor-pointer"><a href="#">Home</a></li>
-        <li class="text-lg hover:text-gray-500 cursor-pointer"><a href="#">Struktur Organisasi</a></li>
+        <li class="text-lg hover:text-gray-500 cursor-pointer"><a href="https://forms.gle/TpAvWjnE83KxfdNHA">SKT</a></li>
         <li class="text-lg hover:text-gray-500 cursor-pointer"><a href="./Dashboard/index.php">Dashboard</a></li>
         <li>
           <a href="/admin_SW1Qb3NzaWJsZU1jNzY3_/index.php">
